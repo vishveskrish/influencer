@@ -1,0 +1,59 @@
+<!--
+/**
+ * krishtechnolabs
+ * @category   Krish
+ * @package    Krish_Lookbook
+ * @copyright  Copyright (c) 2010-2011 Unicode Systems. (http://www.krishtechnolabs.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<?php echo $this->getTabsHtml() ?>
+<script type="text/javascript">
+    //<![CDATA[
+    function load_lookbook_funcs(){        
+<?php if (($block = $this->getLayout()->getBlock('influencer.grid.lookbook')) && ($_gridJsObject = $block->getJsObjectName())): ?>
+            if(!$('in_influencer_lookbook')){
+                setTimeout('load_lookbook_funcs()',500);
+                return false;
+            }
+            var selectedLookbook=$H(<?php echo $this->getLookbooksJson(); ?>);            
+            $('in_influencer_lookbook').value = selectedLookbook.toQueryString();
+            
+            function registerSelectedLookbook(grid, element, checked){
+                if(checked){
+                    selectedLookbook.set(element.value, element.value);
+                }
+                else{
+                    selectedLookbook.unset(element.value);
+                }
+                $('in_influencer_lookbook').value = selectedLookbook.toQueryString();                
+                grid.reloadParams = {'selected_lookbook[]':selectedLookbook.keys()};
+            }    
+            function selectedLookbookRowClick(grid, event){
+                var trElement = Event.findElement(event, 'tr');
+                var isInput   = Event.element(event).tagName == 'INPUT';
+                if(trElement){
+                    var checkbox = Element.getElementsBySelector(trElement, 'input');
+                    if(checkbox[0]){
+                        var checked = isInput ? checkbox[0].checked : !checkbox[0].checked;
+<?php echo $_gridJsObject ?>.setCheckboxChecked(checkbox[0], checked);
+                    }
+                }
+            }
+
+            var tabIndex = 1000;
+            function selectedLookbookRowInit(grid, row){
+                var checkbox = $(row).getElementsByClassName('checkbox')[0];
+            }
+
+
+<?php echo $_gridJsObject ?>.rowClickCallback 		= selectedLookbookRowClick;
+<?php echo $_gridJsObject ?>.initRowCallback 		= selectedLookbookRowInit;
+<?php echo $_gridJsObject ?>.checkboxCheckCallback	= registerSelectedLookbook;
+<?php echo $_gridJsObject ?>.rows.each(function(row){selectedLookbookRowInit(<?php echo $_gridJsObject ?>, row)});
+
+<?php endif; ?>
+    }
+    load_lookbook_funcs();
+    //]]>
+</script>

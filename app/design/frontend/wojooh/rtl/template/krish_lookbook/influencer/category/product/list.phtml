@@ -1,0 +1,173 @@
+<?php
+/**
+ * Add to Wojooh Theme
+ * Enable promoblocks and tag configuration
+ * 
+ * @category    design
+ * @package     rwd_default
+ * @copyright Copyright (c) 2006-2014 X.commerce, Inc. (http://www.magento.com)
+ * @license http://www.magento.com/license/enterprise-edition
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+/* @var $this Mage_Catalog_Block_Product_List */
+?>
+<?php
+    $_productCollection = $this->getLoadedProductCollection();
+    $_helper            = $this->helper('catalog/output');
+    $Lookbookhelper            = $this->helper('lookbook');
+?>
+<?php echo $this->getChildHtml('brand_enhancement') ?>
+<?php if(!$_productCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php else: ?>
+
+<div class="category-products influencer-box">
+
+    <div class="toolbar-top">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+
+    <?php // Grid Mode ?>
+
+    <?php $_collectionSize = $_productCollection->count() ?>
+    <?php $_columnCount = $this->getColumnCount(); ?>
+    <ul class="product-influencer products-grid products-grid--max-<?php echo $_columnCount; ?>-col">
+        <?php $pageNumber = Mage::helper('redbox_promotionblocks')->getCurrentPage(); ?>
+        <?php $promoExists = false; ?>
+        <?php $blockNumber = 1; $index = 0; $i=0; foreach ($_productCollection as $_product): ?>
+        <?php $callBlock = $pageNumber == 1 ? $blockNumber : $blockNumber + ($pageNumber * $_collectionSize / 12) - ($_collectionSize / 12) ?>
+        <?php if ($index == 0 || $index % 12 == 0): ?>
+            <?php $redboxPromotion = $this->getChild('redbox_promotion_' . $callBlock); ?>
+            <?php if ($redboxPromotion) : ?>
+                    <?php echo $redboxPromotion->toHtml(); ?>
+                <?php $i += 2;  $blockNumber++; $promoExists = true; ?>
+            <?php endif; ?>
+        <?php endif; ?>
+            <li class="item<?php if(($i)%$_columnCount == 0): ?> first<?php elseif(($i + 1) % $_columnCount == 0): ?> last<?php endif; ?><?php if ($this->helper('scandi_promotionalproduct')->getIsPromotionalProduct($_product)): ?> promotion<?php endif;?> <?php echo $promoExists ? 'promo-exists' : '' ?>"     data-itemid="<?php echo $_product->getSku() ?>" >
+                    <div class="influencer-pro-parent">
+                <?php if ($this->helper('scandi_promotionalproduct')->getIsPromotionalProduct($_product)): ?>
+                    <?php echo $this->getChild('promotional.product.item')->setProduct($_product)->toHtml(); ?>
+                <?php else: ?>
+                    <div class="pro-left-inf">
+                        <div class="relative">
+                            <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                                <?php $_imgSize = 120; ?>
+                                <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                     src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize)->setQuality(100); ?>"
+                                     alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                            </a>
+                            <?php echo $this->helper('redboxdigital_productlabels')->getLabels($_product); ?>
+                        </div>
+
+                    <div class="product-info">
+                    <h4 class="brand-name"><?php echo $_product->getAttributeText('manufacturer'); ?></h4>
+                            <div class="product-list-content">
+                                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                            </div>
+                    </div>
+                   </div> 
+                    <div class="product-shops">
+                     <div class="product-right-top">
+                           <div class="rate-left">
+                                <div class="product-properties">
+                              
+                                <?php if($_product->getInfluencerratinglabel1()):?>
+                                        <span class="influencer-label"><?php echo $_product->getInfluencerratinglabel1()?></span>
+                                        <?php $rate1 = $_product->getAttributeText('influencerratings1');?>
+                                        <?php if($rate1):?>
+                                            <?php $width = $Lookbookhelper->getStarRating($rate1);?>
+                                            <div class="ratings">
+                                                  <div class="rating-box">
+                                                        <div class="rating" style="width:<?php echo $width;?>"></div>
+                                                    </div>
+                                            </div>
+                                        <?php endif;?>
+                                <?php endif;?>
+                                <?php if($_product->getInfluencerratinglabel2()):?>
+                                        <span class="influencer-label"><?php echo $_product->getInfluencerratinglabel2()?></span>
+                                        <?php $rate2 = $_product->getAttributeText('influencerratings2');?>
+                                        <?php if($rate2):?>
+                                            <?php $width = $Lookbookhelper->getStarRating($rate2);?>
+                                            <div class="ratings">
+                                                  <div class="rating-box">
+                                                        <div class="rating" style="width:<?php echo $width;?>"></div>
+                                                    </div>
+                                            </div>
+                                        <?php endif;?>
+                                <?php endif;?>
+                                 <?php if($_product->getInfluencerratinglabel3()):?>
+                                        <span class="influencer-label"><?php echo $_product->getInfluencerratinglabel3()?></span>
+                                        <?php $rate3 = $_product->getAttributeText('influencerratings3');?>
+                                        <?php if($rate3):?>
+                                            <?php $width = $Lookbookhelper->getStarRating($rate3);?>
+                                            <div class="ratings">
+                                                  <div class="rating-box">
+                                                        <div class="rating" style="width:<?php echo $width;?>"></div>
+                                                    </div>
+                                            </div>
+                                        <?php endif;?>
+                                <?php endif;?>
+                               </div> 
+                           </div>
+
+                           <?php if($_product->getInfulencerimagepath()):?>
+                            <?php $srcD = $Lookbookhelper->getImagePathProduct($_product->getInfulencerimagepath());?>
+                                    <div class="rate-right">
+                                           <span class="img-rat"><img src="<?php echo $srcD;?>" alt="Buse Terim"></span>
+                                              <span class="img-label">
+                            <?php echo $_product->getInfluencerimgbottomlabel()?>
+                                           </span>
+                                    </div>
+                           <?php endif;?>
+                   
+                     </div>
+                    <div class="product-right-bottom">
+                        <?php echo $this->getPriceHtml($_product, true) ?>
+                    <?php if($_product->isSaleable()): ?>
+                         <?php if($_product->getTypeId() == 'configurable'):?>
+                      <p><button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Choose Your Shade')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Choose Your Shade') ?></span></span></button></p>
+                        <?php else: ?>
+                            <p><button type="button" title="<?php echo Mage::helper('core')->quoteEscape($this->__('Add to Cart')) ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button></p>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                    <?php endif; ?>
+                    </div>
+                    </div>
+                <?php endif; ?>
+                </div>
+            </li>
+            <?php if ($this->helper('scandi_promotionalproduct')->getIsPromotionalProduct($_product)): ?>
+                <li class="item last promotion-blank"></li>
+            <?php endif;?>
+            <?php $index++ ?>
+            <?php $i++; ?>
+        <?php endforeach ?>
+    </ul>
+    <script type="text/javascript">decorateGeneric($$('ul.products-grid'), ['odd','even','first','last'])</script>
+
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml() ?>
+    </div>
+    
+</div>
+<?php endif; ?>
+<?php
+// Provides a block where additional page components may be attached, primarily good for in-page JavaScript
+if ($this->getChild('after')) {
+    $_afterChildren = $this->getChild('after')->getSortedChildren();
+    foreach ($_afterChildren as $_afterChildName) {
+        $_afterChild = $this->getChild('after')->getChild($_afterChildName);
+        //set product collection on after blocks
+        $_afterChild->setProductCollection($_productCollection);
+        echo $_afterChild->toHtml();
+    }
+}
+?>

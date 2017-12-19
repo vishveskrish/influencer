@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * 
+ * @category  Krish Technolabs
+ * @package   Krish_LookBook
+ * @copyright Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * 
+ */
+-->
+<layout version="0.1.0">
+    <lookbook_adminhtml_lookbook_index>
+        <reference name="content">
+            <block type="lookbook/adminhtml_lookbook" name="lookbook" />
+        </reference>
+    </lookbook_adminhtml_lookbook_index>
+    <lookbook_adminhtml_lookbook_edit>
+        <update handle="editor"/>
+        <reference name="head">
+            <action method="setCanLoadExtJs">
+                <flag>1</flag>
+            </action>
+        </reference>
+    </lookbook_adminhtml_lookbook_edit>
+    <lookbook_adminhtml_lookbook_products>
+        <block type="core/text_list" name="root" output="toHtml"> 
+            <block type="lookbook/adminhtml_lookbook_edit_tab_products" name="products.grid"/>
+            <block type="adminhtml/widget_grid_serializer" name="products_grid_serializer">
+                <reference name="products_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>products.grid</grid_block_name>
+                        <data_callback>getSelectedProducts</data_callback>
+                        <hidden_input_name>links[prodlist]</hidden_input_name>
+                        <reload_param_name>products_prodlist</reload_param_name>
+                    </action>
+                    <action method="addColumnInputName">
+                        <input_name>sort_order</input_name>
+                    </action>
+                </reference>
+            </block>
+        </block> 
+    </lookbook_adminhtml_lookbook_products>
+
+    <lookbook_adminhtml_lookbook_productsgrid>
+        <block type="core/text_list" name="root" output="toHtml"> 
+            <block type="lookbook/adminhtml_lookbook_edit_tab_products" name="products.grid"/>
+        </block> 
+    </lookbook_adminhtml_lookbook_productsgrid>
+    <lookbook_adminhtml_influencer_index>
+        <reference name="content">
+            <block type="lookbook/adminhtml_influencer" name="influencer" />
+        </reference>
+    </lookbook_adminhtml_influencer_index>
+
+    <lookbook_adminhtml_influencer_edit>
+        <reference name="head">
+            <action method="setCanLoadExtJs"><flag>1</flag></action>
+            <action method="addJs"><script>mage/adminhtml/variables.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/wysiwyg/widget.js</script></action>
+            <action method="addJs"><script>lib/flex.js</script></action>
+            <action method="addJs"><script>lib/FABridge.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/flexuploader.js</script></action>
+            <action method="addJs"><script>mage/adminhtml/browser.js</script></action>
+            <action method="addJs"><script>prototype/window.js</script></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/default.css</name></action>
+            <action method="addItem"><type>js_css</type><name>prototype/windows/themes/magento.css</name></action>
+             <action method="addJs"><file>lib/uploader/flow.min.js</file></action>
+            <action method="addJs"><file>lib/uploader/fusty-flow.js</file></action>
+            <action method="addJs"><file>lib/uploader/fusty-flow-factory.js</file></action>
+            <action method="addJs"><file>mage/adminhtml/uploader/instance.js</file></action>
+        </reference>
+    </lookbook_adminhtml_influencer_edit>
+</layout>

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- 
+/**
+ * @category   Krish
+ * @package    Krish_CategoryAttribute
+ * @author     Krish
+ * @license    http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+ -->
+<config>
+    <modules>
+        <Krish_CategoryAttribute>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+   				<Krish_LookBook/>
+			</depends>
+        </Krish_CategoryAttribute>
+    </modules>
+</config> 

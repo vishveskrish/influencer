@@ -1,0 +1,167 @@
+<?php
+/**
+ * Krish Technolabs
+ * 
+ * @package    Krish_LookBook
+ * @copyright  Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>	
+<?php
+	$helper = Mage::helper('scommerce_googletagmanagerpro');
+    $_category = Mage::getModel('catalog/layer')->getCurrentCategory();
+	$catId = $_category->getId();
+	
+?>
+
+
+<script type="text/javascript">
+	var owl = jQuery(".owl-carousel");
+	owl.owlCarousel();
+	 	owl.on('change.owl.carousel', function(e) {
+	    if (e.namespace && e.property.name === 'position') {
+			var current = e.item.index+ 1;
+			var lookbookcookie = readCookie('lookbookexist');
+	        if(lookbookcookie == null){
+	        	lookbookcookie = e.item.count;
+	        }
+			var arrayLookbook = JSON.parse("[" + readCookie('lookbookexist') + "]");
+				if(jQuery.inArray(current, arrayLookbook) == -1){
+				//	var lookbook_id = jQuery(e.target).find(".owl-item").eq(current).find(".lookbookid-data").attr('value');
+					var cuId = e.item.index;
+				 var lookbook_id = jQuery(e.target).find(".lookbookid-data").eq(cuId).attr('value');
+					sendImpreData(lookbook_id);
+	   			}
+	   			createCookie('lookbookexist', lookbookcookie +","+current,7);
+	    }
+	});
+
+	function passProductData(products,lookbook_id)
+	{
+		window.impressionsinfluencer = null;
+		<?php $cookie = Mage::getSingleton('core/cookie');?>
+		jQuery.removeCookie("productlist", { path: '/', domain: '<?php echo '.' . $cookie->getDomain()?>'});
+		window.dataLayer = window.dataLayer || [];
+	    window.currencyCode = '<?php echo Mage::app()->getStore()->getCurrentCurrencyCode();?>';
+	    window.impressionsinfluencer = window.impressionsinfluencer || [];
+		jQuery.each(products, function( index, value ) {
+		  window.impressionsinfluencer.push({
+		  		 'name': value.name,
+	             'id': value.id,
+	             'price': value.price,
+	             'brand': value.brand,
+	             'category': value.category,
+	             'list': value.list,
+	             'position': value.position,
+	             'creative': value.creative,
+	             'dimension5': value.dimension5,
+	             'dimension8': value.dimension8,
+	             'dimension10': value.dimension10,
+	             'dimension12': value.dimension12,
+	             'dimension14': value.dimension14,
+	             'dimension16': value.dimension16,
+	        });
+		});
+		var windowImpressionArray = jQuery.map(window.impressionsinfluencer, function(value, index) {
+		    return [value];
+		});
+		dataLayer.push({
+			'event':'sendImpression',
+			'ecommerce': {
+				'currencyCode': '<?php echo Mage::app()->getStore()->getCurrentCurrencyCode();?>',                       // Local currency is optional.
+				'impressions':windowImpressionArray,
+				 
+			}
+		});
+	}
+
+	function passProductUrl(products,productsUrls,clickLabel)
+	{
+		 jQuery('a').on('click', function(e){
+		        var product;
+		        var href = jQuery(this).attr('href');
+		        var index = productsUrls.indexOf(href);
+		        if (index != -1){
+		            //event.preventDefault();
+		            product = products[index];
+					jQuery.cookie('productlist', product.list, { path: '/', domain: '<?php echo $helper->getCookieDomain()?>'});
+					dataLayer.push({
+						'event': 'productClick',
+						'ecommerce': {
+						  'click': {
+							'actionField': {'list': clickLabel},     
+							 // Optional list property.
+							'products': [{
+							  'name': product.name,                      // Name or ID is required.
+							  'id': product.id,
+							  'price': product.price,
+							  'brand': product.brand,
+							  'category': product.category,
+							  'position': product.position,
+							  'dimension5': product.dimension5
+							 }]
+						   }
+						 },
+						 'eventCallback': function() {
+						   if (!(e.ctrlKey || e.which==2)){
+								document.location = href;
+							}
+						 }
+					});
+		        }
+		    });
+	}
+</script>
+
+<script type="text/javascript">
+  function sendImpreData(lookbook_id){
+		 var cat_id ="<?php echo $catId;?>";
+		    new Ajax.Request('<?php echo Mage::getUrl('lookbook/index/gtmsend') ?>', {
+					      method:'post',
+					      dataType: 'json',
+					      parameters: {lookbookid: lookbook_id,catId: cat_id},
+					      onSuccess: function(data) {     
+					        var response = jQuery.parseJSON(data.responseText); 
+					        var products = response.JsProducts;
+					        var productsUrls = response.JsProductUrls;
+					        var clickLabel = response.clickLabel;
+					        passProductData(products,lookbook_id);
+					        passProductUrl(products,productsUrls,clickLabel);
+					      },
+					      onFailure: function() {               
+					          console.log('No Tracking Found');
+					          return false;
+					      }
+					    });
+	}
+	jQuery(document).ready(function(){
+		var lookbook_id = jQuery( "#lookbookfirst" ).val();
+		sendImpreData(lookbook_id);
+		eraseCookie('lookbookexist');
+	});
+	function createCookie(name,value,days) {
+	    var expires = "";
+	    if (days) {
+	        var date = new Date();
+	        date.setTime(date.getTime() + (days*24*60*60*1000));
+	        expires = "; expires=" + date.toUTCString();
+	    }
+	    document.cookie = name + "=" + value + expires + "; path=/";
+	}
+	function readCookie(name) {
+	    var nameEQ = name + "=";
+	    var ca = document.cookie.split(';');
+	    for(var i=0;i < ca.length;i++) {
+	        var c = ca[i];
+	        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	    }
+	    return null;
+	}
+	function eraseCookie(name) {
+	    createCookie(name,"",-1);
+	}
+</script>
+
+ 
+

@@ -1,0 +1,291 @@
+<?php
+/**
+ * Krish Technolabs
+ * 
+ * @package    Krish_LookBook
+ * @copyright  Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+  $lookBookCollection = $this->getInfluencerLookbooks();
+  $influencer = $this->getInfluencer();
+?>
+<div class="influencer">
+    <div class="influencer-content">
+      <div class="influencer-photo-wrapper">
+          <div class="influencer-photo">
+              <img id="influencer-<?php echo $influencer->getId(); ?>"
+                   src="<?php echo $influencer->getInfluencerImage()?>"
+                   alt="<?php echo $influencer->getInfluencerName()?>" />
+           </div>
+      </div>
+      <div class="influencer-info">
+        <div class="influencer-detail">
+          <span class="inf-name"><?php echo $influencer->getInfluencerName();?></span>
+          <span class="inf-bio"><?php echo $influencer->getInfluencerBio();?></span>
+        </div>
+      </div>
+      <div class="influencer-btn">
+          <a href="javascript:void(0);" id="myoffers-btn"><?php echo $this->__('my offers');?></a>
+          <a href="javascript:void(0);" id="mylooks-btn"><?php echo $this->__('my looks')?></a>
+          <a href="javascript:void(0);" id="mypicks-btn"><?php echo $this->__('my picks')?></a>
+      </div>
+      <div class="inf-offer-box" id="myoffers">
+          <div class="inf-offer-box-bg-left">                
+          </div>
+          <span class="inf-offer"><?php echo $influencer->getInfluencerCode();?></span>
+          <div class="inf-offer-box-bg-right">
+          </div>
+      </div>
+    </div>
+</div>
+ <div id="mylooks" class="mylooks-influence">
+ <?php $_columnCount = 3; ?>
+    <div class="owl-carousel owl-theme owl-banner" id="owl-carousel-mobile">
+      <?php $j = 0 ;foreach ($lookBookCollection as $lookbook):?>
+        <div class="lookbooks-con-mob">
+          <div class="block-title">
+              <h2><span><?php echo $lookbook->getTitle()?></span></h2>
+          </div>
+          <?php if($lookbook->getYoutubeid()):?>
+            <?php
+              $youtubeId = $lookbook->getYoutubeid();
+              $src = "https://img.youtube.com/vi/".$youtubeId."/hqdefault.jpg";
+              if($lookbook->getData('image')){
+                 $src =$lookbook->getData('image');
+              }
+            ?>
+            <div class="influencer-videos">
+                <a class="video lbox" href="http://www.youtube.com/embed/<?php echo $lookbook->getYoutubeid();?>?autoplay=1"> 
+                    <img alt="" src="<?php echo $src; ?>" /> 
+                    <span class="play-button">Video</span> 
+                </a>
+            </div>
+          <?php else: ?>
+            <?php if($lookbook->getData('image')):?> 
+                <div class="influencer-videos">
+                  <img id="lookbooks-<?php echo $lookbook->getTitle(); ?>"
+                       src="<?php echo $lookbook->getData('image')?>"
+                       alt="<?php echo $lookbook->getTitle()?>" />
+                </div>                 
+            <?php endif;?>
+          <?php endif;?>
+          <div class="influencer-v-grid-mobile">
+              <form action="<?php echo $this->helper( 'lookbook/data' )->getAddToCartUrl() ?>" method="post" id="product_addtocart_form">
+                <?php echo $this->getBlockHtml('formkey') ?>
+                <div class="no-display">
+                  <?php if($j == 0):?>
+                       <input id ="lookbookfirst" type="hidden" name="lookbook_id" class="lookbookid-data-first" value="<?php echo $lookbook->getId(); ?>" />
+                  <?php else: ?>
+                     <input type="hidden" name="lookbook_id" class="lookbookid-data" value="<?php echo $lookbook->getId(); ?>" />
+
+                   <?php endif;?>
+                  <?php  $proIdsstr = implode(",", $lookbook->getLookbookProductIds()) ?>
+                      <input type="hidden" name="productadddata" value="<?php echo $proIdsstr; ?>" />
+                </div>  
+                <ul class="owl-carousel-items-inf products-grid products-grid--max-<?php echo $_columnCount; ?>-col">
+                  <?php $i = 0;?>
+                  <?php foreach ($lookbook->getProducts() as $_product): ?>
+                    <?php $this->setProduct($_product); ?>
+                    <?php $_helper = $this->helper('catalog/output'); ?>
+                    <?php $_product = $this->getProduct(); ?>
+                      <li class="item<?php if(($i)%$_columnCount == 0): ?> first<?php elseif(($i + 1) % $_columnCount == 0): ?> last<?php endif; ?>"     data-itemid="<?php echo $_product->getSku() ?>" >
+                           <div class="relative">
+                                <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                                    <?php $_imgSize = 120; ?>
+                                    <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                         src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize)->setQuality(100); ?>"
+                                         alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                                </a>
+                                <?php echo $this->helper('redboxdigital_productlabels')->getLabels($_product); ?>
+                           </div>
+                            <div class="product-info">
+                              <h4 class="brand-name"><?php echo $_product->getAttributeText('manufacturer'); ?></h4>
+                              <div class="product-list-content">
+                                  <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                              </div>
+                              <?php echo $this->getPriceHtml($_product, true) ?>
+                             <?php $RatingOb=Mage::getModel('rating/rating')->getEntitySummary($_product->getId());
+                                   if($RatingOb->getSum()){
+                                      $ratings=$RatingOb->getSum()/$RatingOb->getCount();  
+                                   }else{
+                                      $ratings ='';
+                                   }                  
+                                  ?>
+                                  <?php if($ratings): ?>
+                                  <div class="ratings">
+                                      <div class="rating-box">
+                                          <div class="rating" style="width:<?php echo $ratings; ?>%"></div>
+                                      </div>
+                                  </div>
+                              <?php endif; ?>
+                            </div>
+                      </li>
+                      <?php $i++; ?>             
+                  <?php endforeach;?>        
+                </ul>
+                <ul class="owl-carousel-items-ipad products-grid products-grid--max-<?php echo $_columnCount; ?>-col" style="display:none">
+                <?php $k = 0;?>
+                <?php foreach ($lookbook->getProducts() as $_product): ?>
+                  <?php $this->setProduct($_product); ?>
+                  <?php $_helper = $this->helper('catalog/output'); ?>
+                  <?php $_product = $this->getProduct(); ?>
+                    <li class="item<?php if(($k)%$_columnCount == 0): ?> first<?php elseif(($k + 1) % $_columnCount == 0): ?> last<?php endif; ?>"     data-itemid="<?php echo $_product->getSku() ?>" >
+                        <div class="relative">
+                          <a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" class="product-image">
+                              <?php $_imgSize = 120; ?>
+                              <img id="product-collection-image-<?php echo $_product->getId(); ?>"
+                                   src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_imgSize)->setQuality(100); ?>"
+                                   alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" />
+                          </a>
+                          <?php echo $this->helper('redboxdigital_productlabels')->getLabels($_product); ?>
+                        </div>
+                          <div class="product-info">
+                            <h4 class="brand-name"><?php echo $_product->getAttributeText('manufacturer'); ?></h4>
+                            <div class="product-list-content">
+                                <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($_product->getName(), null, true) ?>"><?php echo $_helper->productAttribute($_product, $_product->getName(), 'name') ?></a></h2>
+                                
+                            </div>
+                            <?php echo $this->getPriceHtml($_product, true) ?>
+                           <?php $RatingOb=Mage::getModel('rating/rating')->getEntitySummary($_product->getId());
+                                 if($RatingOb->getSum()){
+                                    $ratings=$RatingOb->getSum()/$RatingOb->getCount();  
+                                 }else{
+                                    $ratings ='';
+                                 }                  
+                                ?>
+                                <?php if($ratings): ?>
+                                <div class="ratings">
+                                    <div class="rating-box">
+                                        <div class="rating" style="width:<?php echo $ratings; ?>%"></div>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                            </div>
+                       </li>
+                      <?php $k++; ?>             
+                   <?php endforeach;?>        
+               </ul>
+              <div class="addAllCart">
+                  <button class="form-button" onclick="productAddToCartForm.submit()"><span><?php echo $this->__('Add All To Basket') ?></span></button> 
+              </div>
+          </form>
+        </div>
+      </div>
+    <?php $j++; ?>     
+    <?php endforeach;?>
+    </div>
+</div>
+  <div class="inf-tagline-bar">
+    <span class="inf-tagline"><?php echo $influencer->getInfluencerTagline();?></span>
+    <span class="inf-name"><?php echo $influencer->getInfluencerName();?></span>
+  </div>
+<div class="block-title" id="mypicks">
+  <h2><span><?php echo $this->__('my picks')?></span></h2>
+</div>
+<script type="text/javascript">
+    jQuery('#owl-carousel-mobile').owlCarousel({
+    loop:false,
+    margin:10,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    responsiveClass:true,
+    responsive:{
+        0:{
+            items:1,
+            nav:true
+        },
+        600:{
+            items:1,
+            nav:true
+        },
+        1000:{
+            items:1,
+            nav:true,
+            loop:false
+        }
+    }
+})
+
+</script>
+<script type="text/javascript">
+    jQuery('.owl-carousel-items-inf').owlCarousel({
+    loop:true,
+    stagePadding: 50,
+     margin:10,
+    responsiveClass:true,
+    dots: false,
+    mouseDrag: true,
+    touchDrag: true,
+    pullDrag: true,
+    nav : false, // Show next and prev buttons
+    responsive:{
+        0:{
+            items:2,
+            
+        },
+        600:{
+            items:2,
+            
+        },
+        1000:{
+            items:2,
+          
+        }
+    }
+})
+
+</script>
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+
+            jQuery("#mylooks-btn").click(function() {
+                jQuery('html, body').animate({
+                    scrollTop: jQuery("#mylooks").offset().top - jQuery(".page-header").height() + jQuery(".page-top-banner-wrapper").height()
+                     }, 2000);
+            });
+            jQuery("#myoffers-btn").click(function() {              
+                jQuery('html, body').animate({
+                   scrollTop: jQuery("#myoffers").offset().top - jQuery(".page-header").height() + jQuery(".page-top-banner-wrapper").height()
+                }, 2000);
+            });
+            jQuery("#mypicks-btn").click(function() {
+                jQuery('html, body').animate({
+                     scrollTop: jQuery("#mypicks").offset().top - jQuery(".page-header").height() + jQuery(".page-top-banner-wrapper").height()
+                }, 2000);
+            });
+     });
+</script>
+<script type="text/javascript">
+
+function doOnOrientationChange()
+{
+    switch(window.orientation)
+    { 
+        case -90:
+        case 90:
+            if(jQuery('#mylooks').find('.influencer-v-grid-mobile').length !== 0){
+              jQuery('#mylooks').find('.influencer-v-grid-mobile').addClass('influencer-v-grid').removeClass('influencer-v-grid-mobile');
+            }
+              jQuery('.owl-carousel-items-ipad').show();
+              jQuery('.owl-carousel-items-inf').hide();
+          break;
+        default:
+          if(jQuery('#mylooks').find('.influencer-v-grid').length !== 0){
+              jQuery('#mylooks').find('.influencer-v-grid').addClass('influencer-v-grid-mobile').removeClass('influencer-v-grid');
+            }
+              jQuery('.owl-carousel-items-ipad').hide();
+                jQuery('.owl-carousel-items-inf').show();
+          break;
+    }
+}
+
+window.addEventListener('orientationchange', doOnOrientationChange);
+
+// First launch
+doOnOrientationChange();
+
+</script>
+

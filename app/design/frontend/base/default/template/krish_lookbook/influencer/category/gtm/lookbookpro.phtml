@@ -1,0 +1,69 @@
+<?php
+/**
+ * Krish Technolabs
+ * 
+ * @package    Krish_LookBook
+ * @copyright  Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>	
+<?php 
+
+  /**
+   *
+   *
+   * @var $this Scommerce_GoogleTagManagerPro_Block_List
+   */
+
+	$_productCollection = $this->getLookbook()->getProducts();
+	$helper = Mage::helper('scommerce_googletagmanagerpro');
+	$_influencer = Mage::registry('influencergtm');
+	$Lookbookhelper= $this->helper('lookbook');
+    
+	if (!$helper->isEnabled() || !$helper->isEEEnabled() || count($_productCollection)==0) return;
+
+	$_category =  Mage::registry('influecner_category');
+	$_categoryName = '';
+	if ($_category)
+	{
+		$store_id = Mage::app()->getStore()->getStoreId();
+	    $_categoryName = $_category->getName();
+	    $_categoryURL = $_category->getData('request_path');
+	    $_categoryURLKey = $_category->getData('url_key');
+	    $_lookbookCleanTitle = $this->getLookbook()->getTitle();
+		$_lookbookTitle =$Lookbookhelper->sanitizeStringForTag($_lookbookCleanTitle);
+	}
+	$_productUrls = array();
+	$_products = array();
+ 	$_impressionList = 'PLP_influencer_'. $_categoryURLKey.'/'.$_lookbookTitle;	
+ 	$_clickLabel   = $_impressionList;//'Category';
+	$_loop = 1;
+	foreach ($_productCollection as $_product)
+	{
+	    $_productUrls[] = $_product->getProductUrl();
+	    $_products[] = array(
+	        'id' => $this->jsQuoteEscape($_product->getSku()),
+	        'name'  => $this->jsQuoteEscape($_product->getName()),
+			'price'  => $this->helper('core')->currency($_product->getPrice(),false,false),
+	        'category' => $this->jsQuoteEscape($_categoryName),
+	        'brand' => $this->jsQuoteEscape($helper->getBrand($_product)),
+	        'list'  => $_impressionList,
+	        'position' => $_loop,
+	        'creative' => 'tile',
+	        'dimension5' => $this->jsQuoteEscape(Mage::getModel('eav/entity_attribute_set')->load($_product->getAttributeSetId())->getAttributeSetName()),
+			'dimension8' => $this->jsQuoteEscape($_product->getAttributeText('size')),
+			'dimension10' => $this->jsQuoteEscape($_product->getSkinType()),
+			'dimension12' => $this->jsQuoteEscape($_product->getSkinConcern()),
+			'dimension14' => $this->jsQuoteEscape($_product->getResource()->getAttribute('fragrancetype')->getFrontend()->getValue($_product)),
+			'dimension16' => $this->jsQuoteEscape($_product->getAttributeText('fragrance_notes'))
+	    );
+
+	    $_loop++;
+	}
+
+	$returnData['JsProducts'] = $_products;
+	$returnData['JsProductUrls'] = $_productUrls;
+	$returnData['clickLabel'] = $_clickLabel;
+
+	echo json_encode($returnData);
+?>

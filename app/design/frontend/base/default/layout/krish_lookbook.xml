@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * 
+ * @category  Krish Technolabs
+ * @package   Krish_LookBook
+ * @copyright Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * 
+ */
+-->
+<layout version="0.1.0">   
+    <default>
+        <reference name="after_body_start">
+            <block type="lookbook/influencer_gtm" name="gtm_tracking_influencer" template="krish_lookbook/influencer/category/gtm/gtmscript.phtml" />
+        </reference>
+    </default>
+    <catalog_category_view>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type><name>css/krish_lookbook/influencer.css</name>
+            </action>
+             <action method="addJs"><script>krish_lookbook/influencer.js</script></action>
+         </reference>            
+     </catalog_category_view>
+      <lookbook_index_gtmsend>
+             <block type="lookbook/influencer_gtm" name="root" template="krish_lookbook/influencer/category/gtm/lookbookpro.phtml" />
+     </lookbook_index_gtmsend>
+</layout>

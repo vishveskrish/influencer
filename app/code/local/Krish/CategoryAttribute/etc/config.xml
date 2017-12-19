@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Module configuration
+ *
+ * @category  Krish Technolabs
+ * @package   Krish_CategoryAttribute
+ * @copyright Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * 
+ */
+-->
+<config>
+  <modules>
+    <Krish_CategoryAttribute>
+      <version>0.1.0</version>
+    </Krish_CategoryAttribute>
+  </modules>
+   <frontend>
+        <category>
+            <collection>
+                <attributes>
+                    <krish_influencer_new/>
+                </attributes>
+            </collection>
+        </category>
+    </frontend>
+  <global>
+    <helpers>
+      <categoryattribute>
+        <class>Krish_CategoryAttribute_Helper</class>
+      </categoryattribute>
+    </helpers>
+	<models>
+	  <categoryattribute>
+		<class>Krish_CategoryAttribute_Model</class>
+		<resourceModel>categoryattribute_mysql4</resourceModel>
+	  </categoryattribute>
+	</models>
+	<resources>
+	  <categoryattribute_setup>
+		<setup>
+		  <module>Krish_CategoryAttribute</module>
+		  <class>Mage_Catalog_Model_Resource_Eav_Mysql4_Setup</class>
+		</setup>
+		<connection>
+		  <use>core_setup</use>
+		</connection>
+	  </categoryattribute_setup>
+	  <categoryattribute_write>
+		<connection>
+		  <use>core_write</use>
+		</connection>
+	  </categoryattribute_write>
+	  <categoryattribute_read>
+		<connection>
+		  <use>core_read</use>
+		</connection>
+	  </categoryattribute_read>
+	</resources>
+  </global>
+</config> 

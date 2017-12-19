@@ -1,0 +1,210 @@
+
+@font-face {
+    font-family: 'lemon_tuesdayregular';
+    src: url('lemon_tuesday-webfont.woff2') format('woff2'),
+         url('lemon_tuesday-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+.influencer { margin: 0px;}
+.influencer .influencer-content { margin: 0px;}
+.influencer .influencer-content .inf-offer-box strong {font-weight: bold;  font-size: 15px;}
+.influencer .influencer-content .inf-offer-box span span {  color: #fff;  padding: 3px 10px;
+    background: -moz-linear-gradient(90deg, #ff7979 0%, #ff07f5 100%); /* ff3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ff07f5), color-stop(100%, #99DAFF)); /* safari4+,chrome */
+    background: -webkit-linear-gradient(90deg, #ff7979 0%, #ff07f5 100%); /* safari5.1+,chrome10+ */
+    background: -o-linear-gradient(90deg, #ff7979 0%, #ff07f5 100%); /* opera 11.10+ */
+    background: -ms-linear-gradient(90deg, #ff7979 0%, #ff07f5 100%); /* ie10+ */
+    background: linear-gradient(0deg, #ff7979 0%, #ff07f5 100%); /* w3c */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff7979', endColorstr='#99DAFF',GradientType=0 ); /* ie6-9 */ 
+    font-family: "Futura W02 Book",Futura,Trebuchet MS,Arial,sans-serif;
+}
+.influencer .influencer-content .inf-offer-box {  display: inline-block;  margin:20px 0px 0px 0px;  display: inline-block;  width: 100%; position: relative;
+padding: 0px; text-align: center;border-image-slice: 1; text-transform: uppercase; font-size: 14px;}
+.influencer .influencer-content .inf-offer-box .inf-offer-box-bg-left {  background: url(../krish_lookbook/inf-offer-box-bg-left.jpg) right top no-repeat; display: inline-block; height: 154px;  width: 20px; float: left;
+position: relative;z-index: 1;}
+.influencer .influencer-content .inf-offer-box .inf-offer-box-bg-right {  background: url(../krish_lookbook/inf-offer-box-bg-left.jpg) left top no-repeat; display: inline-block; height: 154px; width: 20px;float: right;
+position: relative; z-index: 1;}
+.influencer .influencer-content .inf-offer-box .inf-offer {background: url(../krish_lookbook/inf-offer-box-bg-mid.jpg) left top repeat-x; display: inline-block; height: 154px;
+float: left;  width: 100%;  position: absolute; left: 0; right: 0;}
+.influencer .influencer-content .inf-offer-box .inf-offer p {top: 43%; position: relative;}
+.mylooks-influence {position: relative;}
+.influencer .influencer-content { margin: 0px;}
+.influencer .influencer-content .influencer-photo-wrapper { margin: 0px 0 0 3%; float: right; width: 17%;}
+.influencer .influencer-content .influencer-photo-wrapper .influencer-photo {  border: 2px solid #000000; border-radius: 100%; float: left; margin: 0; overflow: hidden;}
+.influencer .influencer-content .influencer-info { display: inline-block; margin: 20px 0 0; width: 80%;}
+.influencer .influencer-content .influencer-info .influencer-detail {}
+.influencer .influencer-content .influencer-info .influencer-detail .inf-name {font-weight:bold; color: #333; font-size: 13px; text-transform: uppercase;  margin: 0 0 10px 0;  display: inline-block;  width: 100%;}
+.influencer .influencer-content .influencer-btn { display: inline-block;  width: 100%; margin: 20px 0px 0px 0px;}
+.influencer .influencer-content .influencer-btn a {  border: 1px solid #333;  height: 35px;  line-height: 35px; border-radius: 5px; padding: 0px 20px;  font-size: 13px; text-transform: uppercase;
+display: inline-block;  margin: 0px 10px 0px 0px; text-decoration: none;}
+.influencer .influencer-content .influencer-btn a:hover {text-decoration: underline;}
+
+.inf-tagline-bar { width: 100%;  display: inline-block;  padding: 20px 0px;  background: #f4f4f4; color: #333; margin: 20px 0px 0px 0px;}
+.inf-tagline-bar .inf-tagline {text-align: center; font-family: 'lemon_tuesdayregular';
+font-size: 40px; font-weight: bold;}
+.inf-tagline-bar { }
+.inf-tagline-bar .inf-name { font-weight: bold; color: #333; font-size: 13px; text-transform: uppercase; margin: 0; display: inline-block; line-height: normal; text-align: right; position: relative; right: -20%; 
+    width: 70%; float: left;}
+.influencer-box {  display: inline-block;  width: 100%; margin: 10px 0px 0px 0px;}
+
+.influencer-box .item.last {  margin-left: 0px;}
+
+
+.influencer-box .item .pro-left-inf {float: left;  width: 25%}
+.influencer-box .item .pro-left-inf {float: left;  width: 25%}
+
+
+.influencer-box .item { width: 50%; margin-left: 0px;   } 
+.influencer-box .item:nth-child(3n+1) {  clear: none; margin-left: 0px;}
+
+.influencer-box .item:nth-child(2n) { padding-right:3.7037%;}
+
+.influencer-box .products-grid>li:nth-child(2n) {margin-left: 0px;}
+.influencer-box .products-grid>li:nth-child(3n) {margin-left: 0px;}
+
+
+.influencer-box .item .pro-left-inf .product-info {margin: 15px 0 0 0;}
+.influencer-box .item .pro-left-inf .product-info .brand-name {height: auto !important; margin-bottom: 5px;}
+
+.influencer-box .item .product-shops {float: left; width: 70%;  margin: 0 0 0 5%;}
+.influencer-box .item .product-shops .product-right-top { float: left; width: 100%;  margin: 0px 0px 10px 0px;}
+.influencer-box .item .product-shops .product-right-top .rate-left{ float: left; text-transform: uppercase; width: 70%;}
+.influencer-box .item .product-shops .product-right-top .rate-left .product-properties {text-align: left; line-height: 28px;}
+.influencer-box .item .product-shops .product-right-top .rate-left .product-properties .influencer-label {width: 55%; float: left;}
+.influencer-box .item .product-shops .product-right-top .rate-right { width: 30%; display: inline-block;text-align: center; font-size: 12px; text-transform: uppercase; font-weight: bold;}
+.influencer-box .item .product-shops .product-right-top .rate-right .img-label { font-size: 9px;  display: inline-block;  width: 100%;}
+.influencer-box .item .product-shops .product-right-top .rate-right .img-rat{  height: 70px; width: 70px; border: 1px solid #000; overflow: hidden; border-radius: 100%; display: inline-block;}
+.influencer-box .item .product-shops .product-right-top .product-right-bottom {  display: inline-block;  width: 100%;}
+.influencer-box .item .product-shops .product-right-top .product-right-bottom .price-box {float: left;}
+.influencer-box .item .product-shops .product-right-bottom .price-box {float: left;  width: 32%;  text-align: left}
+.influencer-box .item .product-shops .product-right-bottom .price-box .price {line-height: 40px; font-size: 15px;}
+.influencer-box .item .product-shops .product-right-bottom .button.btn-cart{width: 68%; padding: 11px 0px;}
+.influencer-box .item .product-shops .product-right-bottom .button.btn-cart:hover { background: #fff; border: 1px solid #333; color: #333; transition: all 0.3s ease 0s;}
+.influencer-box .item .product-shops .product-right-bottom .button.btn-cart:hover:before { color: #333; transition: all 0.3s ease 0s;}
+.influencer-box .item .product-shops .product-right-bottom .button.btn-cart:before { content: '\e801'; color: #fff; font-family: "wojooh";  margin-left: 10px; vertical-align: top;}
+.influencer-videos { float: left; width: 50%; position: relative; margin: 10px 4% 0 0; }
+.influencer-videos .play-button {  background: rgba(0, 0, 0, 0) url("https://s.wojooh.com/frontend/wojooh/default/images/icon_sprite.png") no-repeat scroll 25px -677px; border: 6px solid #ffffff; border-radius: 50%; font-size: 0; height: 70px; left: 50%; position: absolute; text-indent: -9999px; top: 50%; transform: translate(-50%, -50%); width: 70px;}
+.influencer-v-grid { float: left; width: 46%; margin: 10px 0 0 0;}
+.influencer-v-grid { float: left; width: 46%; margin: 10px 0 0 0;}
+.mylooks-influence .owl-theme .owl-dots { margin-top: 20px;}
+.influencer-v-grid .products-grid .sticker {width:  auto;}
+.influencer-box .item .pro-left-inf .sticker.exclusive {width:  auto;}
+.influencer-v-grid .price-box .price { line-height: 24px; font-size: 15px; color: #333;}
+.influencer-v-grid .item .product-info .product-name { min-height: 35px; margin-bottom: 0px;}
+.influencer-v-grid .relative { max-width: 180px; margin: 0px auto;}
+.influencer-v-grid .addAllCart {  text-align: center;}
+.influencer-v-grid-mobile .addAllCart {  text-align: center; margin-top: 20px;}
+
+.influencer-v-grid .addAllCart .form-button {background: none; border: 1px solid #333;  padding: 0px 20px;  height: 40px; line-height: 40px;   color: #333; text-transform: uppercase; position: relative; top: -1px;
+ cursor: pointer;}
+
+.influencer-v-grid .addAllCart .form-button:hover { background: #333; color: #fff; transition: all 0.3s ease 0s;}
+.influencer-v-grid-mobile .addAllCart .form-button {background: none; border: 1px solid #333;  padding: 0px 20px;  height: 40px; line-height: 40px;   color: #333; text-transform: uppercase; position: relative; top: -1px;}
+
+.mylooks-influence .owl-carousel.owl-theme .owl-prev { left: -40px; height: 50px;  width: 30px;padding: 0px;}
+.mylooks-influence .owl-carousel.owl-theme .owl-prev:before { font-size: 35px;  color: #333;}
+.mylooks-influence .owl-carousel.owl-theme .owl-next { right: -40px; height: 50px; width: 30px; padding: 0px}
+.mylooks-influence .owl-carousel.owl-theme .owl-next:before { font-size: 35px;  color: #333;}
+
+.influencer-box .toolbar-top {display: none;}
+.sidebar  { margin: 10px 0px 0px 0px;}
+
+.widget-product-selection .widget-title h2, .block-title h2 { letter-spacing: .2em;}
+
+@media screen and (min-width:320px) and (max-width:767px){
+    .influencer-v-grid {  width: 100%;  float: none;}
+    .influencer { margin: 10px 0 0 0;}
+    .influencer .influencer-content .influencer-photo-wrapper {  width: 30%;}
+    .influencer .influencer-content .influencer-info { width: 65%; margin: 0px; }
+    .influencer-videos {width: 100%;  margin: 20px 0px;}
+    .influencer-box .item {  width: 100%;}
+    .influencer .influencer-content .influencer-btn a { height: 30px; line-height: 30px;  margin: 0px 5px 0px 0px;  padding: 0px 10px; white-space: nowrap;}
+    .mylooks-influence .owl-carousel.owl-theme .owl-prev { left: 5px; top: 29%;}
+    .mylooks-influence .owl-carousel.owl-theme .owl-next { right: 5px; top: 29%;}
+    .inf-tagline-bar .inf-tagline { font-size: 12px;}
+    .inf-tagline-bar .inf-name { right: -28%; margin-top: 5px;}
+    .influencer-box .item .product-shops .product-right-bottom .button.btn-cart { font-size: 10px;}
+    .influencer-v-grid-mobile .products-grid .item {text-align:  center;}
+    .influencer-v-grid-mobile .addAllCart {text-align: center;}
+    .influencer-v-grid-mobile .addAllCart .form-button { background: none; border: 1px solid #333; padding: 0px 20px; height: 40px; line-height: 40px; color: #333; text-transform: uppercase; position: relative; top: -1px;}
+    .influencer-v-grid-mobile .addAllCart {  margin: 20px 0 0px 0;}
+    .influencer-box .item .pro-left-inf {width: 30%;}
+    .influencer-box .item .product-shops {width: 67%;margin-left: 3%;}
+    .influencer-box .item .product-shops .product-right-top .rate-left {width: 75%;}
+    .influencer-box .item .product-shops .product-right-top .rate-left .product-properties .influencer-label {font-size: 11px;}
+    .influencer-box .item .product-shops .product-right-top .rate-left .product-properties {  line-height: 24px;}
+    .influencer-box .item .product-shops .product-right-top .rate-right {  font-size: 10px;  width: 25%}
+    .influencer-box .item .product-shops .product-right-top .rate-right .img-rat { width: 50px; height: 50px;}
+    .influencer .influencer-content .inf-offer-box .inf-offer p {top: 30%;}
+    .mylooks-influence .block-title h2 span { padding: 0px 10px}
+    .mylooks-influence .block-title h2 {letter-spacing: 0.5px;}
+    .influencer-box .item .product-shops .product-right-top .rate-right .img-label {  width: 100%; display: inline-block;}
+    .influencer .influencer-content .inf-offer-box .inf-offer p {padding: 0px 30px;}
+    .mylooks-influence .owl-theme .owl-dots { margin: 0px;}
+    .influencer-box .item .product-shops .product-right-top .rate-left .ratings {width: 45%;}
+    .inf-tagline-bar .inf-tagline p:before {content: '\201c'; font-size: 20px;  top: 8px;}
+.inf-tagline-bar .inf-tagline p:after {content: '\201d';  font-size: 20px; top: 8px;}
+    
+  
+}
+
+
+@media screen and (min-width:768px) and (max-width:980px) {
+.inf-tagline-bar .inf-tagline { font-size: 25px;} 
+    .mylooks-influence .owl-carousel.owl-theme .owl-prev {  left: 0px; top: 30%;}
+    .mylooks-influence .owl-carousel.owl-theme .owl-next { right: 6px; top: 30%;}
+    .influencer-videos {  width: 100%; margin: 10px 0px;}
+    .influencer-v-grid {  width: 100%;  float: none;}
+    .influencer-box .item .pro-left-inf {width: 30%;}
+    .influencer-box .item .product-shops {width: 67%;margin-left: 3%;}
+    .influencer-box .item .product-shops .product-right-top .rate-left {width: 75%;}
+    .influencer-box .item .product-shops .product-right-top .rate-left .product-properties .influencer-label {font-size: 11px;}
+    .influencer-box .item .product-shops .product-right-top .rate-left .product-properties {  line-height: 24px;}
+    .influencer-box .item .product-shops .product-right-top .rate-right {  font-size: 10px;  width: 25%}
+    .influencer-box .item .product-shops .product-right-top .rate-right .img-rat { width: 50px; height: 50px;}
+    .inf-tagline-bar .inf-tagline p:before {content: '\201c'; font-size: 50px;}
+.inf-tagline-bar .inf-tagline p:after {content: '\201d';  font-size: 50px; }
+    
+    
+   
+  
+}
+@media screen and (min-width:981px) and (max-width:1024px){
+    .inf-tagline-bar .inf-tagline { font-size: 32px;}    
+    .mylooks-influence .owl-carousel.owl-theme .owl-prev { left: -30px;}
+    .mylooks-influence .owl-carousel.owl-theme .owl-next { right: -30px;}
+}
+
+@media screen and (min-width:768px) and (max-width:1024px){
+    .mylooks-influence .owl-theme .owl-dots {  margin: 0px;}
+    
+    
+    .influencer-box .item .product-shops .product-right-bottom .button.btn-cart {font-size: 11px;}
+    .influencer-box .item .product-shops .product-right-bottom .button.btn-cart:before { margin-right: 5px;}
+     .influencer .influencer-content .influencer-photo-wrapper {  margin: 3% 3% 0 0;}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

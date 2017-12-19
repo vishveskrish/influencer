@@ -1,0 +1,62 @@
+<?php
+/**
+ * Krish Technolabs
+ * 
+ * @package    Krish_LookBook
+ * @copyright  Copyright (c) 2017 Krish Technolabs. (http://www.krishtechnolabs.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php 
+$helper = Mage::helper('scommerce_googletagmanagerpro');
+?>
+<script type="text/javascript">
+	function manipulationOfMutlipleCart(products, list)
+	{
+		var pageData = jQuery.cookie('redboxPreviousPage');			
+		if (list == undefined){
+			list='Category - influencer';
+		}
+		window.dataLayer = window.dataLayer || [];
+	    window.currencyCode = '<?php echo Mage::app()->getStore()->getCurrentCurrencyCode();?>';
+	    window.impressions = window.impressions || [];
+		jQuery.each(products, function( index, value ) {
+		  dataLayer.push({
+			'event': 'addToCart',
+	        'url': pageData.url,
+	        'pageType': pageData.pageType,
+	        'pageCategory': pageData.pageCategory,
+	        'pageSubCategory': pageData.pageSubCategory,
+	        'brandPage': pageData.brandPage,
+	        'pageTitle': pageData.pageTitle,
+	         'ecommerce': {
+				'currencyCode': '<?php echo Mage::app()->getStore()->getCurrentCurrencyCode();?>',
+				'add': {
+				 	 'products':[{ 
+				     'name': value.name,
+					'id': value.id,
+					'price': value.price,
+					'brand': value.brand,
+					'category': value.category,
+					'quantity': value.qty,
+	            	'dimension5': value.dimension5
+	            	}],
+					}
+				}
+			});
+		});
+	}
+
+	jQuery(document).ready(function($){
+	    jQuery.cookie.json = true;
+		<?php $cookie = Mage::getSingleton('core/cookie');?>
+	    var productToBasketMulti = $.cookie("productToBasketMulti");
+		var productlist = $.cookie("productlist");
+	    if (productToBasketMulti != undefined){
+	    	manipulationOfMutlipleCart(productToBasketMulti,  productlist);	
+	        jQuery.removeCookie("productToBasketMulti", { path: '/', domain: '<?php echo $helper->getCookieDomain()?>'});
+			jQuery.removeCookie("productlist", { path: '/', domain: '<?php echo $helper->getCookieDomain()?>'});
+	    }
+	});
+</script>
+
