@@ -1,0 +1,19 @@
+{
+  "name":"krish/lookbook",
+  "type":"magento-module",
+  "license":"OSL-3.0",
+  "homepage":"https://github.com/vishveskrish/influencer",
+  "description":"Magento extension to add/update influencer.",
+  "authors":[
+    {
+      "name":"Vishves Shah",
+      "email":"vishves.shah@krishtechnolabs.com"
+    }
+  ],
+ "repositories": [
+        {
+            "type": "composer",
+            "url": "https://github.com/vishveskrish/influencer"
+        }
+    ],
+}
