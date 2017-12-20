@@ -16,4 +16,13 @@
             "url": "https://github.com/vishveskrish/influencer"
         }
     ],
+  "extra": {
+        "map": [
+            ["themes/default/skin", "public/skin/frontend/base/default"],
+            ["themes/default/design", "public/app/design/frontend/base/default"],
+            ["modules/Krish_LookBook/Krish_LookBook.xml", "public/app/etc/modules/Krish_LookBook.xml"],
+            ["modules/Krish_LookBook/code", "public/app/code/local/Krish/LookBook"],
+            ["modules/Krish_LookBook/frontend/layout/mymodule.xml", "public/app/design/frontend/base/default/layout/krish_lookbook.xml"]
+        ]
+    }
 }
